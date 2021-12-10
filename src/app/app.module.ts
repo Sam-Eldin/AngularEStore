@@ -27,9 +27,10 @@ import {FormsModule} from "@angular/forms";
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
 import {ToastService, AngularToastifyModule} from "angular-toastify";
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { StoreComponent } from './store/store.component';
 
 const routes: Routes = [
-  {path: '', component: AuthenticationComponent},
+  {path: '', component: StoreComponent},
   {path: '', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -39,7 +40,8 @@ const routes: Routes = [
     LoginComponent,
     SignupComponent,
     ResetPasswordComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    StoreComponent
   ],
   imports: [
     BrowserModule,
