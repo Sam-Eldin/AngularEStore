@@ -28,7 +28,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  changePage(toPage: number) {
+  changePage(toPage: 1 | 3) {
     this.pageNumber.emit(toPage);
   }
 

@@ -36,7 +36,7 @@ export class ResetPasswordComponent implements OnInit {
     }
   }
 
-  changePage(toPage: number) {
+  changePage(toPage: 1 | 2) {
     this.pageNumber.emit(toPage);
   }
 }

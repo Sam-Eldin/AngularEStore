@@ -1,14 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ToastContainerDirective, ToastrService} from "ngx-toastr";
 
+
+
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.css']
 })
 export class AuthenticationComponent implements OnInit {
-  page: number = 3;
-
+  page: number = 1;
   @ViewChild(ToastContainerDirective, { static: true })
   toastContainer: ToastContainerDirective | undefined;
 

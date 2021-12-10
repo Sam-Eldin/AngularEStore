@@ -20,7 +20,19 @@
             <input [(ngModel)]="password" type="password" class="form-control mat-danger"
                    id="confirmPasswordInput" name="pass" placeholder="Password">
           </div>
-          <button type="submit" class="btn btn-primary" (click)="handleLogin()">Log in</button>
+          <div>
+            <a>
+              Do not have an account?
+            </a>
+            <a href="#" class="link-primary" (click)="changePage(2)">Sign up</a>
+          </div>
+          <div>
+            <a>
+              Forgot your password?
+            </a>
+            <a href="#" class="link-primary" (click)="changePage(3)">Reset</a>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3" (click)="handleLogin()">Log in</button>
         </form>
       </div>
     </div>

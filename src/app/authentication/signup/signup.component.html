@@ -9,7 +9,7 @@
               <mat-icon>account_circle</mat-icon>
             </span>
             <input [(ngModel)]="email" type="email" class="form-control" id="emailInput" aria-describedby="emailHelp"
-                   name="email" placeholder="email address">
+                   name="email" placeholder="Email address">
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text">
@@ -29,8 +29,21 @@
             <input [(ngModel)]="confirmPassword" type="password" class="form-control mat-danger"
                    id="confirmPasswordInput" name="pass" placeholder="Confirm Password">
           </div>
-          <button type="submit" class="btn btn-primary" (click)="handleSignup()">
-            <mat-icon>person_add</mat-icon></button>
+          <div>
+            <a>
+              Already have an account?
+            </a>
+            <a href="#" class="link-primary" (click)="changePage(1)">Sign in</a>
+          </div>
+          <div>
+            <a>
+              Forgot your password?
+            </a>
+            <a href="#" class="link-primary" (click)="changePage(3)">Reset</a>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3" (click)="handleSignup()">
+            Create account
+          </button>
         </form>
       </div>
     </div>

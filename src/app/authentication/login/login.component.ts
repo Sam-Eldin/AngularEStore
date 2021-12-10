@@ -14,6 +14,9 @@ import {ActiveToast, ToastrService} from "ngx-toastr";
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+
+  pages = 1 | 2 | 3;
+
   public showProgressbar = false;
   email: string = '';
   password: string = '';
@@ -30,7 +33,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  changePage(toPage: number) {
+  changePage(toPage: 2 | 3) {
     this.pageNumber.emit(toPage);
   }
 
@@ -43,7 +46,6 @@ export class LoginComponent implements OnInit {
       this.toaster.remove(this.currentToaster.toastId);
       this.toaster.success('Logged in successfully');
       // await this.router.navigateByUrl("/store");
-      // this.changePage(2); // todo: change to navigate to store
     } catch (e: AuthError | FirebaseError | any) {
       console.log(e.code);
       if(this.currentToaster) {
