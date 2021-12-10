@@ -9,7 +9,7 @@ import {ToastContainerDirective, ToastrService} from "ngx-toastr";
   styleUrls: ['./authentication.component.css']
 })
 export class AuthenticationComponent implements OnInit {
-  page: number = 1;
+  page: number = 1; //testing
   @ViewChild(ToastContainerDirective, { static: true })
   toastContainer: ToastContainerDirective | undefined;
 
