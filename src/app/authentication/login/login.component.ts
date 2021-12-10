@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
   private currentToaster: ActiveToast<any> | undefined;
   constructor(private router: Router,
               private loginHandler: FirebaseHelper,
-              private _toastService: ToastService,
               private toaster: ToastrService) { }
 
   ngOnInit(): void {

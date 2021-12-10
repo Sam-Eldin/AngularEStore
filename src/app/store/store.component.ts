@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ToastrService} from "ngx-toastr";
+import {FirebaseHelper} from "../FirebaseHelper/firebase-helper.service";
 
 @Component({
   selector: 'app-store',
@@ -8,7 +9,7 @@ import {ToastrService} from "ngx-toastr";
 })
 export class StoreComponent implements OnInit {
 
-  constructor(private toaster: ToastrService) { }
+  constructor(private firestore: FirebaseHelper,private toaster: ToastrService) { }
 
   ngOnInit(): void {
   }
