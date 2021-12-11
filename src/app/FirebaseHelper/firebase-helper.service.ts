@@ -3,15 +3,22 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseHelper {
 
-  constructor(
-    private afAuth: AngularFireAuth,
-    private router: Router) {
+  constructor(private afAuth: AngularFireAuth, private router: Router) {
+  }
+
+  async isLoggedIn() {
+    return await this.afAuth.onAuthStateChanged((user) => {
+      if(user) {
+        console.log(`user is logged in as: ${user.uid} and email: ${user.email}`);
+        return true;
+      }
+      return false;
+    });
   }
 
   async login(email: string, password: string) {
@@ -27,7 +34,7 @@ export class FirebaseHelper {
   }
 
   async logout() {
-    try{
+    try {
       console.log('Signing Out');
       await this.afAuth.signOut();
       await this.router.navigateByUrl('/');

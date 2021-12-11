@@ -3,7 +3,6 @@ import {Router} from "@angular/router";
 import {FirebaseHelper} from "../../FirebaseHelper/firebase-helper.service";
 import firebase from "firebase/compat";
 import UserCredential = firebase.auth.UserCredential;
-import {ToastService} from "angular-toastify";
 import AuthError = firebase.auth.AuthError;
 import FirebaseError = firebase.FirebaseError;
 import {ActiveToast, ToastrService} from "ngx-toastr";
@@ -44,7 +43,7 @@ export class LoginComponent implements OnInit {
       this.userCred = await this.loginHandler.login(this.email, this.password);
       this.toaster.remove(this.currentToaster.toastId);
       this.toaster.success('Logged in successfully');
-      // await this.router.navigateByUrl("/store");
+      await this.router.navigateByUrl("/store");
     } catch (e: AuthError | FirebaseError | any) {
       console.log(e.code);
       if(this.currentToaster) {

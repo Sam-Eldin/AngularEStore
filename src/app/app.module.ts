@@ -14,11 +14,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import { SignupComponent } from './authentication/signup/signup.component';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideDatabase,getDatabase } from '@angular/fire/database';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import {FirebaseHelper} from "./FirebaseHelper/firebase-helper.service";
 import {AngularFireAuth, AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
@@ -28,9 +24,11 @@ import { ResetPasswordComponent } from './authentication/reset-password/reset-pa
 import {ToastService, AngularToastifyModule} from "angular-toastify";
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { StoreComponent } from './store/store.component';
+import { ItemComponent } from './store/item/item.component';
 
 const routes: Routes = [
-  {path: '', component: StoreComponent},
+  {path: '', component: LoginComponent},
+  {path: 'store', component: StoreComponent},
   {path: '', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -41,7 +39,8 @@ const routes: Routes = [
     SignupComponent,
     ResetPasswordComponent,
     AuthenticationComponent,
-    StoreComponent
+    StoreComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,
@@ -63,10 +62,6 @@ const routes: Routes = [
     ),
     MatInputModule,
     AngularToastifyModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore()),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     FormsModule,
