@@ -41,7 +41,7 @@ export class FirebaseHelper {
     try {
       console.log('Signing Out');
       await this.afAuth.signOut();
-      await this.router.navigateByUrl('/');
+      await this.router.navigateByUrl('');
       console.log('Signing Out Success');
     } catch (e) {
       console.log(e);

@@ -20,8 +20,7 @@ export class StoreComponent implements OnInit {
   confirmPassword: string = '';
   phoneNumber: string = '';
 
-  @ViewChild(ToastContainerDirective, { static: true })
-  toastContainer: ToastContainerDirective | undefined;
+
   private currentToaster: ActiveToast<any> | undefined;
 
   constructor(private router: Router, private firestore: FirebaseHelper, private toaster: ToastrService) {
@@ -40,22 +39,22 @@ export class StoreComponent implements OnInit {
 
   }
 
-  async ngOnInit() {
-    const rc = await this.firestore.isLoggedIn();
-    this.toaster.overlayContainer = this.toastContainer;
-    if(!rc) {
-      await this.router.navigateByUrl('');
-    } else {
-      if (FirebaseHelper.user.email) {
-        this.username = FirebaseHelper.user.email.split('@')[0];
-      }
-      this.toaster.success('Logged in successfully');
-    }
+  ngOnInit() {
+    // this.toaster.overlayContainer = this.toastContainer;
+    // const rc = await this.firestore.isLoggedIn();
+    // if(!rc) {
+    //   await this.router.navigateByUrl('');
+    // } else {
+    //   if (FirebaseHelper.user.email) {
+    //     this.username = FirebaseHelper.user.email.split('@')[0];
+    //   }
+    // }
   }
 
   async handleSignOut() {
     try{
       this.currentToaster = this.toaster.info('Logging out');
+      await new Promise(f => setTimeout(f, 1000));
       await this.firestore.logout();
       this.toaster.remove(this.currentToaster.toastId);
       this.toaster.success('Logged out successfully');
