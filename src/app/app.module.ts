@@ -27,7 +27,7 @@ import { StoreComponent } from './store/store.component';
 import { ItemComponent } from './store/item/item.component';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: '', component: AuthenticationComponent},
   {path: 'store', component: StoreComponent},
   {path: '', redirectTo: '/', pathMatch: 'full'}
 ]

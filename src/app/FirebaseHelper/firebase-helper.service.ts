@@ -2,11 +2,14 @@ import {Injectable} from '@angular/core';
 
 import {Router} from '@angular/router';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
+import firebase from "firebase/compat";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseHelper {
+
+  public static user: firebase.User;
 
   constructor(private afAuth: AngularFireAuth, private router: Router) {
   }
@@ -15,6 +18,7 @@ export class FirebaseHelper {
     return await this.afAuth.onAuthStateChanged((user) => {
       if(user) {
         console.log(`user is logged in as: ${user.uid} and email: ${user.email}`);
+        FirebaseHelper.user = user;
         return true;
       }
       return false;

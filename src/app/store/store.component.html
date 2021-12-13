@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-secondary">
   <div class="container-fluid">
     <a class="navbar-brand" href="">
       <img src="assets/storeIcon.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
@@ -12,9 +12,23 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       </ul>
       <div class="d-flex">
-        <button class="btn me-4 shadow-none">
-          <mat-icon>account_circle</mat-icon>
-        </button>
+        <div class="dropdown">
+          <button class="btn me-3 shadow-none dropdown-toggle" type="button" id="accountDropdown"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="accountDropdown">
+            <li><h5 class="dropdown-item-text">Welcome {{this.username}}</h5></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li>
+              <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#accountModal"
+                      (click)="displayModal()">Account Settings
+              </button>
+            </li>
+          </ul>
+        </div>
         <button class="btn me-4 shadow-none">
           <mat-icon>shopping_cart</mat-icon>
         </button>
@@ -26,9 +40,71 @@
   </div>
 </nav>
 
-<div class="container">
-  <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-xl-auto  gx-4">
-    <app-item [price]="product.price" [description]="product.description" [name]="product.name" class="col" *ngFor="let product of products"></app-item>
+<div class="row w-100">
+  <div class="col-1"></div>
+  <div class="col-10">
+    <div class="container">
+      <div class="row row-cols-auto gx-4 justify-content-center">
+        <app-item [price]="product.price" [description]="product.description" [name]="product.name" class="col"
+                  *ngFor="let product of products"></app-item>
+      </div>
+    </div>
   </div>
+  <div class="col-1"></div>
 </div>
 
+<div toastContainer></div>
+
+<!-- Modal -->
+
+<div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="accountModalLabel">Account settings</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <div class="input-group mb-3">
+            <span class="input-group-text">
+              <mat-icon>dialpad</mat-icon>
+            </span>
+              <input [(ngModel)]="phoneNumber" type="tel" class="form-control mat-danger"
+                     id="phoneNumber" name="pass" placeholder="phone number">
+            </div>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+          <div class="col-6">
+            <div class="input-group mb-3">
+            <span class="input-group-text">
+              <mat-icon>lock</mat-icon>
+            </span>
+              <input [(ngModel)]="oldPassword" type="password" class="form-control mat-danger"
+                     id="oldPass" name="pass" placeholder="old password">
+            </div>
+            <div class="input-group mb-3">
+            <span class="input-group-text">
+              <mat-icon>lock</mat-icon>
+            </span>
+              <input [(ngModel)]="newPassword" type="password" class="form-control mat-danger"
+                     id="newPass" name="pass" placeholder="new password">
+            </div>
+            <div class="input-group mb-3">
+            <span class="input-group-text">
+              <mat-icon>lock</mat-icon>
+            </span>
+              <input [(ngModel)]="confirmPassword" type="password" class="form-control mat-danger"
+                     id="confirmNewPass" name="pass" placeholder="confirm password">
+            </div>
+            <button type="button" class="btn btn-danger">Save changes</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

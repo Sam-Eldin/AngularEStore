@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       console.log(`Logging in to account: ${this.email}`);
       this.currentToaster = this.toaster.info('Logging in... ');
       this.showProgressbar = true;
-      this.userCred = await this.loginHandler.login(this.email, this.password);
+      await this.loginHandler.login(this.email, this.password);
       this.toaster.remove(this.currentToaster.toastId);
       this.toaster.success('Logged in successfully');
       await this.router.navigateByUrl("/store");
