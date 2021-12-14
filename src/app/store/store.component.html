@@ -23,8 +23,7 @@
               <hr class="dropdown-divider">
             </li>
             <li>
-              <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#accountModal"
-                      (click)="displayModal()">Account Settings
+              <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#accountModal">Account Settings
               </button>
             </li>
           </ul>
@@ -53,7 +52,7 @@
   <div class="col-1"></div>
 </div>
 
-<div toastContainer></div>
+
 
 <!-- Modal -->
 
@@ -98,12 +97,12 @@
               <input [(ngModel)]="confirmPassword" type="password" class="form-control mat-danger"
                      id="confirmNewPass" name="pass" placeholder="confirm password">
             </div>
-            <button type="button" class="btn btn-danger">Save changes</button>
+            <button type="button" class="btn btn-danger" (click)="displayModal()">Save changes</button>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-info" id="closeModalBtn" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

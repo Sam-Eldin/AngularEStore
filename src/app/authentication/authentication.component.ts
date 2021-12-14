@@ -1,5 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ToastContainerDirective, ToastrService} from "ngx-toastr";
+import {Component, OnInit} from '@angular/core';
 
 
 
@@ -10,13 +9,10 @@ import {ToastContainerDirective, ToastrService} from "ngx-toastr";
 })
 export class AuthenticationComponent implements OnInit {
   page: number = 1;
-  @ViewChild(ToastContainerDirective, { static: true })
-  toastContainer: ToastContainerDirective | undefined;
 
-  constructor(private toasterService: ToastrService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.toasterService.overlayContainer = this.toastContainer;
   }
 
   changePage(toPage: number) {

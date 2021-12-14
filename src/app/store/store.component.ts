@@ -1,9 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ActiveToast, ToastContainerDirective, ToastrService} from "ngx-toastr";
+import {Component, OnInit} from '@angular/core';
+import {ActiveToast, ToastrService} from "ngx-toastr";
 import {FirebaseHelper} from "../FirebaseHelper/firebase-helper.service";
 import {product} from "./item/item.component";
 import {Router} from "@angular/router";
-
 
 const testProduct: product = {name: 'vodka', description: 'good stuff'.repeat(10), price: 15, quantity: 10};
 
@@ -36,23 +35,22 @@ export class StoreComponent implements OnInit {
     this.products.push(testProduct);
     this.products.push(testProduct);
     this.products.push(testProduct);
-
   }
 
   ngOnInit() {
-    // this.toaster.overlayContainer = this.toastContainer;
-    // const rc = await this.firestore.isLoggedIn();
-    // if(!rc) {
-    //   await this.router.navigateByUrl('');
-    // } else {
-    //   if (FirebaseHelper.user.email) {
-    //     this.username = FirebaseHelper.user.email.split('@')[0];
-    //   }
-    // }
+    this.firestore.firebaseAuth?.onAuthStateChanged((user) => {
+      if (user && user.email) {
+        this.username = user.email.split('@')[0];
+      } else {
+        this.currentToaster = this.toaster.warning('You must sign in');
+        this.router.navigateByUrl('').then(() => {
+        });
+      }
+    });
   }
 
   async handleSignOut() {
-    try{
+    try {
       this.currentToaster = this.toaster.info('Logging out');
       await new Promise(f => setTimeout(f, 1000));
       await this.firestore.logout();
@@ -60,14 +58,26 @@ export class StoreComponent implements OnInit {
       this.toaster.success('Logged out successfully');
     } catch (e) {
       console.log(e);
-      if(this.currentToaster) {
+      if (this.currentToaster) {
         this.toaster.remove(this.currentToaster.toastId);
       }
       this.toaster.error('Failed: ' + e);
     }
   }
 
-  displayModal() {
-
+  async displayModal() {
+    try {
+      this.currentToaster = this.toaster.info('Changing password');
+      await new Promise(f => setTimeout(f, 1000));
+      await this.firestore.changePassword(this.oldPassword, this.newPassword);
+      this.toaster.remove(this.currentToaster.toastId);
+      this.toaster.success('Password changed successfully');
+    } catch (e) {
+      console.log(e);
+      if (this.currentToaster) {
+        this.toaster.remove(this.currentToaster.toastId);
+      }
+      this.toaster.error('Failed: ' + e);
+    }
   }
 }
