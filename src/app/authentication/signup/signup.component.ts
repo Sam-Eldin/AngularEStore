@@ -52,8 +52,9 @@ export class SignupComponent implements OnInit {
       console.log(e.code);
       switch (e.code) {
         case 'auth/invalid-email': this.toaster.error('Invalid email'); break;
-        case 'auth/week-password': this.toaster.error('Week password'); break;
+        case 'auth/weak-password': this.toaster.error('Week password'); break;
         case 'auth/email-already-in-use': this.toaster.error('Email already exist'); break;
+        default: this.toaster.error(e.code); break;
       }
     }
   }
