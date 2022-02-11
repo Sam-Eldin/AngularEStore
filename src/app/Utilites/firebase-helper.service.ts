@@ -23,10 +23,8 @@ export class FirebaseHelper {
     this.firestore = this.firebaseApp.firestore();
     this.firebaseAuth?.onAuthStateChanged((user) => {
       if (user) {
-        console.log('Logged in');
         this.user = user;
       } else {
-        console.log('something else');
         this.user = null;
       }
     });
@@ -35,10 +33,8 @@ export class FirebaseHelper {
   async login(email: string, password: string) {
     try {
       await this.firebaseAuth?.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(async () => {
-        console.log('logged in');
         await this.firebaseAuth?.signInWithEmailAndPassword(email, password);
         this.user = this.firebaseAuth?.currentUser;
-        console.log(this.firebaseAuth?.currentUser);
       });
     } catch (e) {
       throw new Error('Failed to sign in: ' + e);
@@ -61,12 +57,9 @@ export class FirebaseHelper {
 
   async logout() {
     try {
-      console.log('Signing Out');
       await this.afAuth.signOut();
       await this.router.navigateByUrl('');
-      console.log('Signing Out Success');
     } catch (e) {
-      console.log(e);
     }
   }
 

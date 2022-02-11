@@ -15,7 +15,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
 import { SignupComponent } from './authentication/signup/signup.component';
 import { environment } from '../environments/environment';
-import {FirebaseHelper} from "./FirebaseHelper/firebase-helper.service";
+import {FirebaseHelper} from "./Utilites/firebase-helper.service";
 import {AngularFireAuth, AngularFireAuthModule} from "@angular/fire/compat/auth";
 import {AngularFireDatabase} from "@angular/fire/compat/database";
 import {AngularFireModule} from "@angular/fire/compat";
@@ -27,6 +27,7 @@ import { StoreComponent } from './store/store.component';
 import { ItemComponent } from './store/item/item.component';
 import { NavbarComponent } from './store/navbar/navbar.component';
 import { CartComponent } from './cart/cart.component';
+import { UserComponent } from './store/navbar/user/user.component';
 
 
 const routes: Routes = [
@@ -46,6 +47,7 @@ const routes: Routes = [
     ItemComponent,
     NavbarComponent,
     CartComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

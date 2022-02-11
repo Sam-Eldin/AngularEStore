@@ -1,7 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FirebaseHelper} from "../../FirebaseHelper/firebase-helper.service";
-import {ActiveToast, ToastrService} from "ngx-toastr";
+import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
+import {ActiveToast} from "ngx-toastr";
 import firebase from "firebase/compat";
+import {ToasterHelperService, toasterTypes} from "../../Utilites/toaster-helper.service";
 import AuthError = firebase.auth.AuthError;
 
 @Component({
@@ -20,7 +21,7 @@ export class SignupComponent implements OnInit {
   currentToaster: ActiveToast<any> | undefined;
   @Output() pageNumber = new EventEmitter<number>(true);
 
-  constructor(private firebaseHelper: FirebaseHelper, private toaster: ToastrService) {
+  constructor(private firebaseHelper: FirebaseHelper, private toaster: ToasterHelperService) {
     this.strongPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
     this.mediumPassword = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
   }
@@ -35,26 +36,19 @@ export class SignupComponent implements OnInit {
   async handleSignup() {
     try{
       if (this.password !== this.confirmPassword) {
-        this.currentToaster = this.toaster.error('Passwords do not match');
+        this.toaster.createToaster(toasterTypes.error, 'Passwords do not match');
         return;
       }
-      this.currentToaster = this.toaster.info('Creating account');
-      console.log(`Creating account with {${this.email}, ${this.password}`);
+      this.toaster.createToaster(toasterTypes.info, 'Creating account');
       await this.firebaseHelper.emailSignup(this.email, this.password);
-      console.log('Successfully created the account');
-      this.toaster.remove(this.currentToaster.toastId);
-      this.currentToaster = this.toaster.success('Account been created');
+      this.toaster.createToaster(toasterTypes.success, 'Account been created');
       this.changePage(1);
     } catch (e: AuthError | any) {
-      if(this.currentToaster) {
-        this.toaster.remove(this.currentToaster.toastId);
-      }
-      console.log(e.code);
       switch (e.code) {
-        case 'auth/invalid-email': this.toaster.error('Invalid email'); break;
-        case 'auth/weak-password': this.toaster.error('Week password'); break;
-        case 'auth/email-already-in-use': this.toaster.error('Email already exist'); break;
-        default: this.toaster.error(e.code); break;
+        case 'auth/invalid-email': this.toaster.createToaster(toasterTypes.error, 'Invalid email'); break;
+        case 'auth/weak-password': this.toaster.createToaster(toasterTypes.error, 'Week password'); break;
+        case 'auth/email-already-in-use': this.toaster.createToaster(toasterTypes.error, 'Email already exist'); break;
+        default: this.toaster.createToaster(toasterTypes.error, e.code); break;
       }
     }
   }

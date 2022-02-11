@@ -1,11 +1,11 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
-import {FirebaseHelper} from "../../FirebaseHelper/firebase-helper.service";
+import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
 import firebase from "firebase/compat";
+import {ToasterHelperService, toasterTypes} from "../../Utilites/toaster-helper.service";
 import UserCredential = firebase.auth.UserCredential;
 import AuthError = firebase.auth.AuthError;
 import FirebaseError = firebase.FirebaseError;
-import {ActiveToast, ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -23,10 +23,11 @@ export class LoginComponent implements OnInit {
 
   @Output() pageNumber = new EventEmitter<number>(true);
 
-  private currentToaster: ActiveToast<any> | undefined;
+
   constructor(private router: Router,
               private loginHandler: FirebaseHelper,
-              private toaster: ToastrService) { }
+              private toaster: ToasterHelperService) {
+  }
 
   ngOnInit(): void {
 
@@ -38,19 +39,13 @@ export class LoginComponent implements OnInit {
 
   async handleLogin() {
     try {
-      console.log(`Logging in to account: ${this.email}`);
-      this.currentToaster = this.toaster.info('Logging in... ');
+      this.toaster.createToaster(toasterTypes.info, 'Logging in... ');
       this.showProgressbar = true;
       await this.loginHandler.login(this.email, this.password);
-      this.toaster.remove(this.currentToaster.toastId);
-      this.toaster.success('Logged in successfully');
+      this.toaster.createToaster(toasterTypes.success, 'Logged in successfully');
       await this.router.navigateByUrl("/store");
     } catch (e: AuthError | FirebaseError | any) {
-      console.log(e.code);
-      if(this.currentToaster) {
-        this.toaster.remove(this.currentToaster.toastId);
-      }
-      this.toaster.error('Invalid email/password');
+      this.toaster.createToaster(toasterTypes.error, 'Invalid email/password');
     }
   }
 }

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActiveToast, ToastrService} from "ngx-toastr";
-import {FirebaseHelper} from "../FirebaseHelper/firebase-helper.service";
+import {FirebaseHelper} from "../Utilites/firebase-helper.service";
 import {product} from "./item/item.component";
 import {Router} from "@angular/router";
+import {ToasterHelperService, toasterTypes} from "../Utilites/toaster-helper.service";
 
 const testProduct: product = {name: 'vodka', description: 'good stuff'.repeat(10), price: 15, quantity: 10};
 
@@ -20,9 +20,8 @@ export class StoreComponent implements OnInit {
   phoneNumber: string = '';
 
 
-  private currentToaster: ActiveToast<any> | undefined;
 
-  constructor(private router: Router, public firestore: FirebaseHelper, private toaster: ToastrService) {
+  constructor(private router: Router, public firestore: FirebaseHelper, private toaster: ToasterHelperService) {
     this.products.push(testProduct);
     this.products.push(testProduct);
     this.products.push(testProduct);
@@ -45,17 +44,12 @@ export class StoreComponent implements OnInit {
 
   async displayModal() {
     try {
-      this.currentToaster = this.toaster.info('Changing password');
+      this.toaster.createToaster(toasterTypes.info, 'Changing password');
       await new Promise(f => setTimeout(f, 1000));
       await this.firestore.changePassword(this.oldPassword, this.newPassword);
-      this.toaster.remove(this.currentToaster.toastId);
-      this.toaster.success('Password changed successfully');
+      this.toaster.createToaster(toasterTypes.success, 'Password changed successfully');
     } catch (e) {
-      console.log(e);
-      if (this.currentToaster) {
-        this.toaster.remove(this.currentToaster.toastId);
-      }
-      this.toaster.error('Failed: ' + e);
+      this.toaster.createToaster(toasterTypes.error, 'Failed: ' + e);
     }
   }
 }
