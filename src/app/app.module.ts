@@ -25,6 +25,9 @@ import {ToastService, AngularToastifyModule} from "angular-toastify";
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { StoreComponent } from './store/store.component';
 import { ItemComponent } from './store/item/item.component';
+import { NavbarComponent } from './store/navbar/navbar.component';
+import { CartComponent } from './cart/cart.component';
+
 
 const routes: Routes = [
   {path: '', component: AuthenticationComponent},
@@ -40,7 +43,9 @@ const routes: Routes = [
     ResetPasswordComponent,
     AuthenticationComponent,
     StoreComponent,
-    ItemComponent
+    ItemComponent,
+    NavbarComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

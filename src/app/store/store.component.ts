@@ -22,7 +22,7 @@ export class StoreComponent implements OnInit {
 
   private currentToaster: ActiveToast<any> | undefined;
 
-  constructor(private router: Router, private firestore: FirebaseHelper, private toaster: ToastrService) {
+  constructor(private router: Router, public firestore: FirebaseHelper, private toaster: ToastrService) {
     this.products.push(testProduct);
     this.products.push(testProduct);
     this.products.push(testProduct);
@@ -38,32 +38,10 @@ export class StoreComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.firestore.firebaseAuth?.onAuthStateChanged((user) => {
-      if (user && user.email) {
-        this.username = user.email.split('@')[0];
-      } else {
-        this.currentToaster = this.toaster.warning('You must sign in');
-        this.router.navigateByUrl('').then(() => {
-        });
-      }
-    });
+
   }
 
-  async handleSignOut() {
-    try {
-      this.currentToaster = this.toaster.info('Logging out');
-      await new Promise(f => setTimeout(f, 1000));
-      await this.firestore.logout();
-      this.toaster.remove(this.currentToaster.toastId);
-      this.toaster.success('Logged out successfully');
-    } catch (e) {
-      console.log(e);
-      if (this.currentToaster) {
-        this.toaster.remove(this.currentToaster.toastId);
-      }
-      this.toaster.error('Failed: ' + e);
-    }
-  }
+
 
   async displayModal() {
     try {

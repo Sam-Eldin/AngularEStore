@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
               private toaster: ToastrService) { }
 
   ngOnInit(): void {
+
   }
 
   changePage(toPage: 2 | 3) {

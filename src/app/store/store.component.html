@@ -1,43 +1,4 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-secondary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="">
-      <img src="assets/storeIcon.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
-      &nbsp; Gozzby Store
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      </ul>
-      <div class="d-flex">
-        <div class="dropdown">
-          <button class="btn me-3 shadow-none dropdown-toggle" type="button" id="accountDropdown"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-            <mat-icon>account_circle</mat-icon>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-            <li><h5 class="dropdown-item-text">Welcome {{this.username}} Enjoy</h5></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#accountModal">Account Settings
-              </button>
-            </li>
-          </ul>
-        </div>
-        <button class="btn me-4 shadow-none">
-          <mat-icon>shopping_cart</mat-icon>
-        </button>
-        <button class="btn shadow-none" (click)="handleSignOut()">
-          <mat-icon>exit_to_app</mat-icon>
-        </button>
-      </div>
-    </div>
-  </div>
-</nav>
+<app-navbar [username]="this.firestore.user?.email"></app-navbar>
 
 <div class="row w-100">
   <div class="col-1"></div>

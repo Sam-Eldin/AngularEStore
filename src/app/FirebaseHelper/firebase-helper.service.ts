@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import firebase from "firebase/compat/app";
 import {environment} from "../../environments/environment";
+import "firebase/compat/firestore";
+import 'firebase/compat/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +14,13 @@ export class FirebaseHelper {
 
   public user: firebase.User | undefined | null;
   public firebaseAuth: firebase.auth.Auth | undefined;
+  public firestore: firebase.firestore.Firestore | undefined;
   public firebaseApp: firebase.app.App | undefined;
 
   constructor(private afAuth: AngularFireAuth, private router: Router) {
     this.firebaseApp = firebase.initializeApp(environment.firebase);
     this.firebaseAuth = this.firebaseApp.auth();
+    this.firestore = this.firebaseApp.firestore();
     this.firebaseAuth?.onAuthStateChanged((user) => {
       if (user) {
         console.log('Logged in');
@@ -46,7 +50,13 @@ export class FirebaseHelper {
   }
 
   async emailSignup(email: string, password: string) {
-    await this.firebaseAuth?.createUserWithEmailAndPassword(email, password);
+    const userCredential = await this.firebaseAuth?.createUserWithEmailAndPassword(email, password);
+    if(userCredential && userCredential.user && userCredential.user.email) {
+      await this.firestore?.collection('users').doc(userCredential.user.uid).set({
+        'name': userCredential.user.email.split('@')[0],
+        'cart': []
+      })
+    }
   }
 
   async logout() {
