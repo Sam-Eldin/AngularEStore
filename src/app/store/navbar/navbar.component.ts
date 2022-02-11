@@ -9,10 +9,12 @@ import {ToasterHelperService, toasterTypes} from "../../Utilites/toaster-helper.
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  @Input() numOfActions: number = 0;
 
-  @Input() username: string | null | undefined = '';
 
-  constructor(private router: Router, private firestore: FirebaseHelper, private toaster: ToasterHelperService) { }
+  constructor(private router: Router, private firestore: FirebaseHelper, private toaster: ToasterHelperService) {
+
+  }
 
   ngOnInit(): void {
   }

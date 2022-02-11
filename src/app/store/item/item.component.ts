@@ -1,10 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
+import {ToasterHelperService, toasterTypes} from "../../Utilites/toaster-helper.service";
 
 export interface product {
- name: string,
- price: number,
- quantity: number,
- description: string
+  name: string,
+  price: number,
+  description: string,
+  image_name: string
 }
 
 
@@ -16,14 +18,28 @@ export interface product {
 export class ItemComponent implements OnInit {
   @Input() name: string;
   @Input() description: string;
+  @Input() image_name: string;
   @Input() price: number;
-  constructor() {
+  @Output() addItemEvent = new EventEmitter<number>();
+
+  constructor(private firebase: FirebaseHelper, private toaster: ToasterHelperService) {
     this.name = '';
     this.description = '';
     this.price = 0;
+    this.image_name = '';
   }
 
   ngOnInit(): void {
   }
 
+  async addItemToCart() {
+    try {
+      this.toaster.createToaster(toasterTypes.info, 'Adding item to cart');
+      await this.firebase.addItem(this.name);
+      this.toaster.createToaster(toasterTypes.success, 'Item in cart');
+      this.addItemEvent.emit(1);
+    } catch (e) {
+      this.toaster.createToaster(toasterTypes.error, String(e));
+    }
+  }
 }

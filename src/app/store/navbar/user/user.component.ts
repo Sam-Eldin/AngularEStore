@@ -76,4 +76,12 @@ export class UserComponent implements OnInit {
       }
     }
   }
+
+  clearForm() {
+    console.log('here')
+    this.phoneNumber = '';
+    this.oldPassword = '';
+    this.newPassword = '';
+    this.confirmPassword = '';
+  }
 }

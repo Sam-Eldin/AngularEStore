@@ -28,6 +28,7 @@ import { ItemComponent } from './store/item/item.component';
 import { NavbarComponent } from './store/navbar/navbar.component';
 import { CartComponent } from './cart/cart.component';
 import { UserComponent } from './store/navbar/user/user.component';
+import {MatBadgeModule} from "@angular/material/badge";
 
 
 const routes: Routes = [
@@ -72,7 +73,8 @@ const routes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     FormsModule,
-    ToastContainerModule
+    ToastContainerModule,
+    MatBadgeModule
   ],
   providers: [
     FirebaseHelper,
