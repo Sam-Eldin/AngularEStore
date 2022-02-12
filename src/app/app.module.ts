@@ -29,11 +29,13 @@ import { NavbarComponent } from './store/navbar/navbar.component';
 import { CartComponent } from './cart/cart.component';
 import { UserComponent } from './store/navbar/user/user.component';
 import {MatBadgeModule} from "@angular/material/badge";
+import { CartItemComponent } from './cart/cart-item/cart-item.component';
 
 
 const routes: Routes = [
   {path: '', component: AuthenticationComponent},
   {path: 'store', component: StoreComponent},
+  {path: 'cart', component: CartComponent},
   {path: '', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -49,6 +51,7 @@ const routes: Routes = [
     NavbarComponent,
     CartComponent,
     UserComponent,
+    CartItemComponent,
   ],
   imports: [
     BrowserModule,

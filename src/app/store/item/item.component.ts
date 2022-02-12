@@ -22,7 +22,8 @@ export class ItemComponent implements OnInit {
   @Input() image_name: string;
   @Input() price: number;
 
-  constructor(private firebase: FirebaseHelper, private toaster: ToasterHelperService, private manager: NavManagerService) {
+
+  constructor(public firebase: FirebaseHelper, private toaster: ToasterHelperService, private manager: NavManagerService) {
     this.name = '';
     this.description = '';
     this.price = 0;

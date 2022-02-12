@@ -142,14 +142,20 @@ export class FirebaseHelper {
     return result;
   }
 
+  public delay: boolean = false;
   async addItem(item_name: string) {
     if (!this.user) {
       throw new Error('No user!!!');
     }
+    if (this.delay) {
+      return;
+    }
+    this.delay = true;
     let prevData = <userData>(await this.usersCollection.doc(this.user.uid).get()).data();
     const itemQ = prevData.cart.hasOwnProperty(item_name) ? prevData.cart[item_name] : 0;
     prevData.cart[item_name] = itemQ + 1;
     await this.usersCollection.doc(this.user.uid).update(prevData);
+    this.delay = false;
   }
 
   async removeItem(item_name: string) {

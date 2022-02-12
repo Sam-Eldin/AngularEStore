@@ -17,7 +17,7 @@
         <button class="btn me-3 shadow-none" type="button" id="accountDropdown" data-bs-toggle="modal" data-bs-target="#accountModal">
           <mat-icon>account_circle</mat-icon>
         </button>
-        <button class="btn me-4 shadow-none">
+        <button class="btn me-4 shadow-none" (click)="gotoCart()">
           <mat-icon>shopping_cart</mat-icon>
           <span class="badge rounded-circle bg-gradient" *ngIf="this.badgeCount > 0">{{this.badgeCount}}</span>
         </button>

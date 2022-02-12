@@ -29,6 +29,7 @@ export class StoreComponent implements OnInit {
     this.toaster.createToaster(toasterTypes.success, 'loading complete');
     data.forEach((prod) => {
       this.products.push(prod);
+      this.products.push(prod);
     })
     this.showStore = true;
   }

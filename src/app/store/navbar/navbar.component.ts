@@ -31,4 +31,9 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  async gotoCart() {
+    await this.manager.resetCartBadge();
+    await this.router.navigateByUrl('/cart');
+  }
+
 }
