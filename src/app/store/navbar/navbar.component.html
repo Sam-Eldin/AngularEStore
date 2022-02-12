@@ -19,7 +19,7 @@
         </button>
         <button class="btn me-4 shadow-none">
           <mat-icon>shopping_cart</mat-icon>
-          <span class="badge rounded-circle bg-gradient" *ngIf="numOfActions > 0">{{numOfActions}}</span>
+          <span class="badge rounded-circle bg-gradient" *ngIf="this.badgeCount > 0">{{this.badgeCount}}</span>
         </button>
         <button class="btn shadow-none" (click)="handleSignOut()">
           <mat-icon>exit_to_app</mat-icon>

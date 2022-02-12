@@ -13,7 +13,6 @@ import {ToasterHelperService, toasterTypes} from "../Utilites/toaster-helper.ser
 export class StoreComponent implements OnInit {
   public products: Array<product> = [];
   showStore: boolean = false;
-  numOfActions: number = 0;
 
 
 
@@ -32,9 +31,5 @@ export class StoreComponent implements OnInit {
       this.products.push(prod);
     })
     this.showStore = true;
-  }
-
-  newItemInCart() {
-    this.numOfActions++;
   }
 }

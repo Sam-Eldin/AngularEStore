@@ -5,7 +5,7 @@
 </div>
 
 
-<app-navbar *ngIf="showStore" [numOfActions]="numOfActions"></app-navbar>
+<app-navbar *ngIf="showStore"></app-navbar>
 
 <div class="row w-100" *ngIf="showStore">
   <div class="col-1"></div>
@@ -13,7 +13,7 @@
     <div class="container">
       <div class="row row-cols-auto gx-4 justify-content-center">
         <app-item [price]="product.price" [description]="product.description" [name]="product.name" [image_name]="product.image_name" class="col"
-                  *ngFor="let product of products" (addItemEvent)="newItemInCart()"></app-item>
+                  *ngFor="let product of products"></app-item>
       </div>
     </div>
   </div>

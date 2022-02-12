@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
 import {ToasterHelperService, toasterTypes} from "../../Utilites/toaster-helper.service";
+import {NavManagerService} from "./nav-manager.service";
 
 @Component({
   selector: 'app-navbar',
@@ -9,14 +10,14 @@ import {ToasterHelperService, toasterTypes} from "../../Utilites/toaster-helper.
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  @Input() numOfActions: number = 0;
+  badgeCount: number = 0;
 
-
-  constructor(private router: Router, private firestore: FirebaseHelper, private toaster: ToasterHelperService) {
+  constructor(private router: Router, private firestore: FirebaseHelper, private toaster: ToasterHelperService, public manager: NavManagerService) {
 
   }
 
   ngOnInit(): void {
+    this.manager.currentBadgeNumber.subscribe(num => this.badgeCount = num);
   }
 
   async handleSignOut() {
