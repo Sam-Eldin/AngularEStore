@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FirebaseHelper} from "../Utilites/firebase-helper.service";
 import {product} from "./item/item.component";
 import {Router} from "@angular/router";
-import {ToasterHelperService, toasterTypes} from "../Utilites/toaster-helper.service";
+import {ToasterHelper, toasterTypes} from "../Utilites/toaster-helper.service";
 
 
 @Component({
@@ -16,7 +16,7 @@ export class StoreComponent implements OnInit {
 
 
 
-  constructor(private router: Router, public firestore: FirebaseHelper, private toaster: ToasterHelperService) {
+  constructor(private router: Router, public firestore: FirebaseHelper, private toaster: ToasterHelper) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -28,6 +28,8 @@ export class StoreComponent implements OnInit {
     const data = await this.firestore.getAllProducts();
     this.toaster.createToaster(toasterTypes.success, 'loading complete');
     data.forEach((prod) => {
+      this.products.push(prod);
+      this.products.push(prod);
       this.products.push(prod);
       this.products.push(prod);
     })

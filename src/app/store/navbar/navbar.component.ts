@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
-import {ToasterHelperService, toasterTypes} from "../../Utilites/toaster-helper.service";
+import {ToasterHelper, toasterTypes} from "../../Utilites/toaster-helper.service";
 import {NavManagerService} from "./nav-manager.service";
 
 @Component({
@@ -12,7 +12,7 @@ import {NavManagerService} from "./nav-manager.service";
 export class NavbarComponent implements OnInit {
   badgeCount: number = 0;
 
-  constructor(private router: Router, private firestore: FirebaseHelper, private toaster: ToasterHelperService, public manager: NavManagerService) {
+  constructor(private router: Router, private firestore: FirebaseHelper, private toaster: ToasterHelper, public manager: NavManagerService) {
 
   }
 

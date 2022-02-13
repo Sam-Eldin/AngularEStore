@@ -14,7 +14,7 @@ interface userData {
   name: string
 }
 
-interface cartItem {
+export interface cartItem {
   name: string,
   description: string,
   price: number,
@@ -28,9 +28,9 @@ interface cartItem {
 export class FirebaseHelper {
 
   public user: firebase.User | undefined | null;
-  public firebaseAuth: firebase.auth.Auth | undefined;
-  public firestore: firebase.firestore.Firestore | undefined;
-  public firebaseApp: firebase.app.App | undefined;
+  public firebaseAuth: firebase.auth.Auth;
+  public firestore: firebase.firestore.Firestore;
+  public firebaseApp: firebase.app.App;
 
 
   private readonly productsCollection: firebase.firestore.CollectionReference<any>;
@@ -42,13 +42,20 @@ export class FirebaseHelper {
     this.firestore = this.firebaseApp.firestore();
     this.productsCollection = this.firestore.collection('products');
     this.usersCollection = this.firestore.collection('users');
-    this.firebaseAuth?.onAuthStateChanged((user) => {
+
+
+    this.firebaseAuth.onAuthStateChanged(async (user) => {
       if (user) {
         this.user = user;
-      } else {
-        this.user = null;
+        if (this.router.url === '/') {
+          await this.router.navigateByUrl('/store');
+        } else if (this.router.url === '/store') {
+        }
+        return;
       }
+      await this.router.navigateByUrl('');
     });
+
   }
 
 
@@ -124,25 +131,30 @@ export class FirebaseHelper {
 
   // Users collection functions
   async getUserCart(): Promise<cartItem[]> {
-    if (!this.user) {
-      throw new Error('No user!!!');
+    let flag = 10;
+    while (!this.user && flag > 0) {
+      await new Promise(r => setTimeout(r, 1000));
     }
+    if (!this.user)
+      throw new Error('No User!!');
     const data = <userData>(await this.usersCollection.doc(this.user.uid).get()).data();
     let result: cartItem[] = [];
-    let temp: cartItem = {name: '', image_name: '', price: 0, description: '', quantity: 0};
+
     for (const [name, quantity] of Object.entries(data.cart)) {
       const prod = await this.getProductByName(name);
-      temp.name = name;
-      temp.quantity = Number(quantity);
-      temp.price = prod.price;
-      temp.description = prod.description;
-      temp.image_name = prod.image_name;
-      result.push(temp);
+      result.push({
+        name: name,
+        image_name: prod.image_name,
+        price: prod.price,
+        description: prod.description,
+        quantity: Number(quantity)
+      });
     }
     return result;
   }
 
   public delay: boolean = false;
+
   async addItem(item_name: string) {
     if (!this.user) {
       throw new Error('No user!!!');
@@ -172,7 +184,7 @@ export class FirebaseHelper {
       throw new Error('No user!!!');
     }
     let prevData = <userData>(await this.usersCollection.doc(this.user.uid).get()).data();
-    prevData.cart.set(item_name, newQuantity);
+    prevData.cart[item_name] = newQuantity;
     await this.usersCollection.doc(this.user.uid).update(prevData);
   }
 }

@@ -12,7 +12,7 @@
   <div class="col-10">
     <div class="container">
       <div class="row row-cols-auto gx-4 justify-content-center">
-        <app-item [price]="product.price" [description]="product.description" [name]="product.name" [image_name]="product.image_name" class="col"
+        <app-item [price]="product.price" [description]="product.description" [name]="product.name" [image_name]="product.image_name" class="col-lg-4 d-flex align-items-stretch"
                   *ngFor="let product of products"></app-item>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
-import {ToasterHelperService, toasterTypes} from "../../Utilites/toaster-helper.service";
+import {ToasterHelper, toasterTypes} from "../../Utilites/toaster-helper.service";
 import {NavManagerService} from "../navbar/nav-manager.service";
 
 export interface product {
@@ -23,7 +23,7 @@ export class ItemComponent implements OnInit {
   @Input() price: number;
 
 
-  constructor(public firebase: FirebaseHelper, private toaster: ToasterHelperService, private manager: NavManagerService) {
+  constructor(public firebase: FirebaseHelper, private toaster: ToasterHelper, private manager: NavManagerService) {
     this.name = '';
     this.description = '';
     this.price = 0;

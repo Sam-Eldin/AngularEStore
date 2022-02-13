@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
 import {ActiveToast} from "ngx-toastr";
 import firebase from "firebase/compat";
-import {ToasterHelperService, toasterTypes} from "../../Utilites/toaster-helper.service";
+import {ToasterHelper, toasterTypes} from "../../Utilites/toaster-helper.service";
 import AuthError = firebase.auth.AuthError;
 
 @Component({
@@ -15,7 +15,7 @@ export class ResetPasswordComponent implements OnInit {
   @Output() pageNumber = new EventEmitter<number>(true);
 
   currentToaster: ActiveToast<any> | undefined;
-  constructor(private firebaseHelper: FirebaseHelper, private toaster: ToasterHelperService) { }
+  constructor(private firebaseHelper: FirebaseHelper, private toaster: ToasterHelper) { }
 
   ngOnInit(): void {
   }

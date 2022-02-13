@@ -1,10 +1,10 @@
-<div class="card mt-2" style="width: 18rem; background-color: rgba(255,255,255,0.5)">
-  <img src="../../../assets/products/{{image_name}}" class="card-img-top" alt="card image">
+<div class="card mt-3 mb-2 pb-3 text-truncate" style="width: 18rem; background-color: rgba(255,255,255,0.5)">
   <div class="card-body">
-    <h5 class="card-title  text-black-50">{{name}}</h5>
-    <p class="card-text">{{description}}</p>
+    <img src="../../../assets/products/{{image_name}}" class="card-img-top" alt="card image">
+    <h5 class="card-title text-black-50">{{name}}</h5>
+    <p class="card-text text-wrap overflow-hidden">{{description}}</p>
+    <h2 class="text-dark">${{price}}</h2>
     <button class="btn btn-dark mb-2" [disabled]="this.firebase.delay" (click)="addItemToCart()">Add to cart
       </button>
-    <span class="badge text-primary"><h2>${{price}}</h2></span>
   </div>
 </div>

@@ -21,17 +21,5 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.toaster.overlayContainer = this.toastContainer;
-    this.firebaseHelper.firebaseAuth?.onAuthStateChanged(async (user) => {
-      if (user && user.email) {
-        this.firebaseHelper.user = user;
-        if (this.router.url === '/') {
-          await this.router.navigateByUrl('/store');
-        } else if (this.router.url === '/store') {
-        }
-        return;
-      }
-      await this.router.navigateByUrl('');
-    });
   }
-
 }

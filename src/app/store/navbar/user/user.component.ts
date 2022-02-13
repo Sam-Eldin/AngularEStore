@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ToasterHelperService, toasterTypes} from "../../../Utilites/toaster-helper.service";
+import {ToasterHelper, toasterTypes} from "../../../Utilites/toaster-helper.service";
 import {FirebaseHelper} from "../../../Utilites/firebase-helper.service";
 import firebase from "firebase/compat";
 import AuthError = firebase.auth.AuthError;
@@ -17,7 +17,7 @@ export class UserComponent implements OnInit {
   passwordStrength: number = 0;
   strongPassword;
   mediumPassword;
-  constructor(private toaster: ToasterHelperService, private firebase: FirebaseHelper) {
+  constructor(private toaster: ToasterHelper, private firebase: FirebaseHelper) {
     this.strongPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
     this.mediumPassword = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
   }

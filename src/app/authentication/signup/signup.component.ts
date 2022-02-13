@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
 import {ActiveToast} from "ngx-toastr";
 import firebase from "firebase/compat";
-import {ToasterHelperService, toasterTypes} from "../../Utilites/toaster-helper.service";
+import {ToasterHelper, toasterTypes} from "../../Utilites/toaster-helper.service";
 import AuthError = firebase.auth.AuthError;
 
 @Component({
@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
   currentToaster: ActiveToast<any> | undefined;
   @Output() pageNumber = new EventEmitter<number>(true);
 
-  constructor(private firebaseHelper: FirebaseHelper, private toaster: ToasterHelperService) {
+  constructor(private firebaseHelper: FirebaseHelper, private toaster: ToasterHelper) {
     this.strongPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
     this.mediumPassword = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
   }

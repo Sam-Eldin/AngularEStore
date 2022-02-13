@@ -9,7 +9,7 @@ export enum toasterTypes {
   providedIn: 'root'
 })
 
-export class ToasterHelperService {
+export class ToasterHelper {
   private currentToaster: ActiveToast<any> | undefined;
 
   constructor(private toaster: ToastrService) {

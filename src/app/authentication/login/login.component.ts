@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
 import firebase from "firebase/compat";
-import {ToasterHelperService, toasterTypes} from "../../Utilites/toaster-helper.service";
+import {ToasterHelper, toasterTypes} from "../../Utilites/toaster-helper.service";
 import UserCredential = firebase.auth.UserCredential;
 import AuthError = firebase.auth.AuthError;
 import FirebaseError = firebase.FirebaseError;
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
               private loginHandler: FirebaseHelper,
-              private toaster: ToasterHelperService) {
+              private toaster: ToasterHelper) {
   }
 
   ngOnInit(): void {
