@@ -63,9 +63,9 @@ export class FirebaseHelper {
 
   async login(email: string, password: string) {
     try {
-      await this.firebaseAuth?.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(async () => {
-        await this.firebaseAuth?.signInWithEmailAndPassword(email, password);
-        this.user = this.firebaseAuth?.currentUser;
+      await this.firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(async () => {
+        await this.firebaseAuth.signInWithEmailAndPassword(email, password);
+        this.user = this.firebaseAuth.currentUser;
       });
     } catch (e) {
       throw new Error('Failed to sign in: ' + e);
@@ -74,9 +74,9 @@ export class FirebaseHelper {
 
   async googleLogin() {
     try {
-      await this.firebaseAuth?.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(async () => {
+      await this.firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(async () => {
         await this.firebaseAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-        this.user = this.firebaseAuth?.currentUser;
+        this.user = this.firebaseAuth.currentUser;
       });
     } catch (e) {
       throw new Error('Failed to sign in: ' + e);
@@ -88,9 +88,9 @@ export class FirebaseHelper {
   }
 
   async emailSignup(email: string, password: string) {
-    const userCredential = await this.firebaseAuth?.createUserWithEmailAndPassword(email, password);
+    const userCredential = await this.firebaseAuth.createUserWithEmailAndPassword(email, password);
     if (userCredential && userCredential.user && userCredential.user.email) {
-      await this.firestore?.collection('users').doc(userCredential.user.uid).set({
+      await this.firestore.collection('users').doc(userCredential.user.uid).set({
         'name': userCredential.user.email.split('@')[0],
         'cart': {}
       })
