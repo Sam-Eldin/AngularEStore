@@ -11,7 +11,7 @@ export class CartItemComponent implements OnInit {
 
   @Input() data: cartItem;
   @Output() removeItemEvent = new EventEmitter<string>();
-  constructor(private toaster: ToasterHelper, private firebase: FirebaseHelper) {
+  constructor(private toaster: ToasterHelper, public firebase: FirebaseHelper) {
     this.data = {
       name: '',
       quantity: 0,
@@ -34,6 +34,8 @@ export class CartItemComponent implements OnInit {
       this.toaster.createToaster(toasterTypes.warning, 'If you wish to remove the item, use the remove button');
       return;
     }
+    if (this.firebase.delay)
+      return;
     this.data.quantity += number;
     await this.firebase.updateItem(this.data.name, this.data.quantity);
     this.removeItemEvent.emit('just update');

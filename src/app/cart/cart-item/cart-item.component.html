@@ -9,10 +9,10 @@
     </div>
     <div class="col-3 w-auto fw-bold text-primary">
       <div class="input-group mb-3" style="max-width: 120px">
-        <span class="input-group-text bg-primary bg-gradient text-white"
+        <span [className]="'input-group-text bg-gradient text-white fw-bolder'.concat(this.firebase.delay ? ' bg-secondary' : ' bg-primary')"
               style="font-size: large; cursor: pointer; user-select: none" (click)="changeQuantity(1)">↑</span>
         <input type="text" class="form-control text-center" readonly value="{{this.data.quantity}}">
-        <span class="input-group-text bg-primary bg-gradient text-white fw-bolder"
+        <span [className]="'input-group-text bg-gradient text-white fw-bolder'.concat(this.firebase.delay ? ' bg-secondary' : ' bg-primary')"
               style="font-size: large; cursor: pointer; user-select: none" (click)="changeQuantity(-1)">↓</span>
         ${{this.data.quantity * this.data.price}}
       </div>
