@@ -72,6 +72,17 @@ export class FirebaseHelper {
     }
   }
 
+  async googleLogin() {
+    try {
+      await this.firebaseAuth?.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(async () => {
+        await this.firebaseAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+        this.user = this.firebaseAuth?.currentUser;
+      });
+    } catch (e) {
+      throw new Error('Failed to sign in: ' + e);
+    }
+  }
+
   async emailResetPassword(email: string) {
     await this.afAuth.sendPasswordResetEmail(email);
   }

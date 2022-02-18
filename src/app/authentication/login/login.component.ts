@@ -37,15 +37,22 @@ export class LoginComponent implements OnInit {
     this.pageNumber.emit(toPage);
   }
 
-  async handleLogin() {
+  async handleLogin(google: boolean) {
     try {
       this.toaster.createToaster(toasterTypes.info, 'Logging in... ');
       this.showProgressbar = true;
-      await this.loginHandler.login(this.email, this.password);
+      if (!google)
+        await this.loginHandler.login(this.email, this.password);
+      else
+        await this.loginHandler.googleLogin();
       this.toaster.createToaster(toasterTypes.success, 'Logged in successfully');
       await this.router.navigateByUrl("/store");
     } catch (e: AuthError | FirebaseError | any) {
       this.toaster.createToaster(toasterTypes.error, 'Invalid email/password');
     }
+  }
+
+  async handleLoginGoogle() {
+
   }
 }
