@@ -1,6 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
-import {ActiveToast} from "ngx-toastr";
 import firebase from "firebase/compat";
 import {ToasterHelper, toasterTypes} from "../../Utilites/toaster-helper.service";
 import AuthError = firebase.auth.AuthError;
@@ -18,7 +17,6 @@ export class SignupComponent implements OnInit {
   mediumPassword;
   passwordStrength = 0;
 
-  currentToaster: ActiveToast<any> | undefined;
   @Output() pageNumber = new EventEmitter<number>(true);
 
   constructor(private firebaseHelper: FirebaseHelper, private toaster: ToasterHelper) {
@@ -42,7 +40,6 @@ export class SignupComponent implements OnInit {
       this.toaster.createToaster(toasterTypes.info, 'Creating account');
       await this.firebaseHelper.emailSignup(this.email, this.password);
       this.toaster.createToaster(toasterTypes.success, 'Account been created');
-      this.changePage(1);
     } catch (e: AuthError | any) {
       switch (e.code) {
         case 'auth/invalid-email': this.toaster.createToaster(toasterTypes.error, 'Invalid email'); break;

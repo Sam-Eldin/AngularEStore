@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
-
 import {Router} from '@angular/router';
-import {AngularFireAuth} from "@angular/fire/compat/auth";
 import firebase from "firebase/compat/app";
 import {environment} from "../../environments/environment";
 import "firebase/compat/firestore";
@@ -26,17 +24,16 @@ export interface cartItem {
   providedIn: 'root'
 })
 export class FirebaseHelper {
-
-  public user: firebase.User | undefined | null;
-  public firebaseAuth: firebase.auth.Auth;
-  public firestore: firebase.firestore.Firestore;
-  public firebaseApp: firebase.app.App;
-
-
+  private readonly firebaseAuth: firebase.auth.Auth;
+  private readonly firestore: firebase.firestore.Firestore;
+  private readonly firebaseApp: firebase.app.App;
   private readonly productsCollection: firebase.firestore.CollectionReference<any>;
   private readonly usersCollection: firebase.firestore.CollectionReference<any>;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {
+
+  public user: firebase.User | undefined | null;
+
+  constructor(private router: Router) {
     this.firebaseApp = firebase.initializeApp(environment.firebase);
     this.firebaseAuth = this.firebaseApp.auth();
     this.firestore = this.firebaseApp.firestore();
@@ -49,13 +46,11 @@ export class FirebaseHelper {
         this.user = user;
         if (this.router.url === '/') {
           await this.router.navigateByUrl('/store');
-        } else if (this.router.url === '/store') {
         }
         return;
       }
       await this.router.navigateByUrl('');
     });
-
   }
 
 
@@ -84,13 +79,13 @@ export class FirebaseHelper {
   }
 
   async emailResetPassword(email: string) {
-    await this.afAuth.sendPasswordResetEmail(email);
+    await this.firebaseAuth.sendPasswordResetEmail(email);
   }
 
   async emailSignup(email: string, password: string) {
     const userCredential = await this.firebaseAuth.createUserWithEmailAndPassword(email, password);
     if (userCredential && userCredential.user && userCredential.user.email) {
-      await this.firestore.collection('users').doc(userCredential.user.uid).set({
+      await this.usersCollection.doc(userCredential.user.uid).set({
         'name': userCredential.user.email.split('@')[0],
         'cart': {}
       })
@@ -99,7 +94,7 @@ export class FirebaseHelper {
 
   async logout() {
     try {
-      await this.afAuth.signOut();
+      await this.firebaseAuth.signOut();
       await this.router.navigateByUrl('');
     } catch (e) {
     }
@@ -113,14 +108,15 @@ export class FirebaseHelper {
     }
   }
 
-  // END AUTHENTICATION
-
 
   // Products collection functions
   async getAllProducts(): Promise<product[]> {
-    if (!this.firestore) {
-      throw new Error('firestore is not initialized');
+    let flag = 10;
+    while (!this.user && flag-- > 0) {
+      await new Promise(r => setTimeout(r, 1000));
     }
+    if (!this.user)
+      throw new Error('No User!!');
     const products = (await this.productsCollection.get()).docs;
     let result: product[] | PromiseLike<product[]> = [];
     for (let i = 0; i < products.length; i++) {
@@ -143,7 +139,7 @@ export class FirebaseHelper {
   // Users collection functions
   async getUserCart(): Promise<cartItem[]> {
     let flag = 10;
-    while (!this.user && flag > 0) {
+    while (!this.user && flag-- > 0) {
       await new Promise(r => setTimeout(r, 1000));
     }
     if (!this.user)
@@ -185,17 +181,27 @@ export class FirebaseHelper {
     if (!this.user) {
       throw new Error('No user!!!');
     }
+    if (this.delay) {
+      return;
+    }
+    this.delay = true;
     let prevData = <userData>(await this.usersCollection.doc(this.user.uid).get()).data();
     delete prevData.cart[item_name];
     await this.usersCollection.doc(this.user.uid).update(prevData);
+    this.delay = false;
   }
 
   async updateItem(item_name: string, newQuantity: number) {
     if (!this.user) {
       throw new Error('No user!!!');
     }
+    if (this.delay) {
+      return;
+    }
+    this.delay = true;
     let prevData = <userData>(await this.usersCollection.doc(this.user.uid).get()).data();
     prevData.cart[item_name] = newQuantity;
     await this.usersCollection.doc(this.user.uid).update(prevData);
+    this.delay = false;
   }
 }

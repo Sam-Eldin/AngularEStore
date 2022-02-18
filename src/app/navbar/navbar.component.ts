@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
-import {ToasterHelper, toasterTypes} from "../../Utilites/toaster-helper.service";
+import {FirebaseHelper} from "../Utilites/firebase-helper.service";
+import {ToasterHelper, toasterTypes} from "../Utilites/toaster-helper.service";
 import {NavManagerService} from "./nav-manager.service";
 
 @Component({
@@ -35,5 +35,4 @@ export class NavbarComponent implements OnInit {
     await this.manager.resetCartBadge();
     await this.router.navigateByUrl('/cart');
   }
-
 }

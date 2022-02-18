@@ -22,7 +22,6 @@ export class CartItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data);
   }
 
   async changeQuantity(number: number) {
@@ -41,7 +40,6 @@ export class CartItemComponent implements OnInit {
   }
 
   removeItem() {
-    console.log(this.data.name);
     this.removeItemEvent.emit(this.data.name);
   }
 }

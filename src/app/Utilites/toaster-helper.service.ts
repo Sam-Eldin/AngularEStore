@@ -8,13 +8,10 @@ export enum toasterTypes {
 @Injectable({
   providedIn: 'root'
 })
-
 export class ToasterHelper {
   private currentToaster: ActiveToast<any> | undefined;
 
-  constructor(private toaster: ToastrService) {
-
-  }
+  constructor(private toaster: ToastrService) {}
 
   createToaster(type: toasterTypes, message: string, title: string = '') {
     if (this.currentToaster) {

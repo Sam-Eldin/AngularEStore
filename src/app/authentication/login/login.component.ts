@@ -3,7 +3,6 @@ import {Router} from "@angular/router";
 import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
 import firebase from "firebase/compat";
 import {ToasterHelper, toasterTypes} from "../../Utilites/toaster-helper.service";
-import UserCredential = firebase.auth.UserCredential;
 import AuthError = firebase.auth.AuthError;
 import FirebaseError = firebase.FirebaseError;
 
@@ -13,19 +12,12 @@ import FirebaseError = firebase.FirebaseError;
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-
-  pages = 1 | 2 | 3;
-
-  public showProgressbar = false;
   email: string = '';
   password: string = '';
-  userCred: UserCredential | undefined;
 
   @Output() pageNumber = new EventEmitter<number>(true);
-
-
   constructor(private router: Router,
-              private loginHandler: FirebaseHelper,
+              private firebaseHelper: FirebaseHelper,
               private toaster: ToasterHelper) {
   }
 
@@ -40,19 +32,13 @@ export class LoginComponent implements OnInit {
   async handleLogin(google: boolean) {
     try {
       this.toaster.createToaster(toasterTypes.info, 'Logging in... ');
-      this.showProgressbar = true;
       if (!google)
-        await this.loginHandler.login(this.email, this.password);
+        await this.firebaseHelper.login(this.email, this.password);
       else
-        await this.loginHandler.googleLogin();
+        await this.firebaseHelper.googleLogin();
       this.toaster.createToaster(toasterTypes.success, 'Logged in successfully');
-      await this.router.navigateByUrl("/store");
     } catch (e: AuthError | FirebaseError | any) {
       this.toaster.createToaster(toasterTypes.error, 'Invalid email/password');
     }
-  }
-
-  async handleLoginGoogle() {
-
   }
 }

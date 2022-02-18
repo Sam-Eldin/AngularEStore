@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ToasterHelper, toasterTypes} from "../../../Utilites/toaster-helper.service";
-import {FirebaseHelper} from "../../../Utilites/firebase-helper.service";
+import {ToasterHelper, toasterTypes} from "../../Utilites/toaster-helper.service";
+import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
 import firebase from "firebase/compat";
 import AuthError = firebase.auth.AuthError;
 
@@ -78,7 +78,6 @@ export class UserComponent implements OnInit {
   }
 
   clearForm() {
-    console.log('here')
     this.phoneNumber = '';
     this.oldPassword = '';
     this.newPassword = '';

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FirebaseHelper} from "../../Utilites/firebase-helper.service";
 import {ToasterHelper, toasterTypes} from "../../Utilites/toaster-helper.service";
-import {NavManagerService} from "../navbar/nav-manager.service";
+import {NavManagerService} from "../../navbar/nav-manager.service";
 
 export interface product {
   name: string,

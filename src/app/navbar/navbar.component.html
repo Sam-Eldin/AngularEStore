@@ -3,7 +3,7 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-secondary">
   <div class="container-fluid">
     <a class="navbar-brand" href="/store">
-      <img src="assets/storeIcon.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+      <img src="../../assets/storeIcon.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
       &nbsp; Gozzby Store
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -19,7 +19,7 @@
         </button>
         <button class="btn me-4 shadow-none" (click)="gotoCart()">
           <mat-icon>shopping_cart</mat-icon>
-          <span class="badge rounded-circle bg-gradient" *ngIf="this.badgeCount > 0">{{this.badgeCount}}</span>
+          <span class="badge rounded-circle bg-gradient text-white" *ngIf="this.badgeCount > 0">{{this.badgeCount}}</span>
         </button>
         <button class="btn shadow-none" (click)="handleSignOut()">
           <mat-icon>exit_to_app</mat-icon>
