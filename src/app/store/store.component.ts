@@ -16,8 +16,7 @@ export class StoreComponent implements OnInit {
 
 
 
-  constructor(private router: Router, public firestore: FirebaseHelper, private toaster: ToasterHelper) {
-  }
+  constructor(private router: Router, public firestore: FirebaseHelper, private toaster: ToasterHelper) {}
 
   async ngOnInit(): Promise<void> {
     await this.loadData();
