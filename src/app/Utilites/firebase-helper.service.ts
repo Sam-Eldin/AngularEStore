@@ -113,7 +113,7 @@ export class FirebaseHelper {
   async getAllProducts(): Promise<product[]> {
     let flag = 10;
     while (!this.user && flag-- > 0) {
-      await new Promise(r => setTimeout(r, 1000));
+      await new Promise(r => setTimeout(r, 100));
     }
     if (!this.user)
       throw new Error('No User!!');
@@ -140,7 +140,7 @@ export class FirebaseHelper {
   async getUserCart(): Promise<cartItem[]> {
     let flag = 10;
     while (!this.user && flag-- > 0) {
-      await new Promise(r => setTimeout(r, 1000));
+      await new Promise(r => setTimeout(r, 100));
     }
     if (!this.user)
       throw new Error('No User!!');
